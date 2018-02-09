@@ -32,7 +32,7 @@ public class CatTest {
 				       ),
 				       false);
 		cat = cat.makeProduction();
-//		cat = cat.publish();
+		cat = cat.publish();
 		cat = cat.resetColor("ny 25");
 		System.out.println(cat.toJson());
 		

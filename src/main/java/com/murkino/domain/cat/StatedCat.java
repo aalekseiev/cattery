@@ -35,7 +35,7 @@ public class StatedCat implements Cat {
 	}
 
 	@Override
-	public StatedCat graduate() {
+	public Cat graduate() {
 		return new StatedCat(origin, new GraduatedState());
 	}
 	
@@ -43,7 +43,7 @@ public class StatedCat implements Cat {
 	 * @see com.murkino.domain.cat.Cat#makeProduction()
 	 */
 	@Override
-	public StatedCat makeProduction() {
+	public Cat makeProduction() {
 		return new StatedCat(origin, new ProductionState());
 	}
 	
@@ -51,7 +51,7 @@ public class StatedCat implements Cat {
 	 * @see com.murkino.domain.cat.Cat#sell()
 	 */
 	@Override
-	public StatedCat sell() {
+	public Cat sell() {
 		return new StatedCat(origin, new SoldState());
 	}
 
@@ -77,7 +77,7 @@ public class StatedCat implements Cat {
 	}
 
 	public Cat publish() {
-		throw new UnsupportedOperationException("StatedCats are NOT publishable");
+		return origin.publish();
 	}
 
 }

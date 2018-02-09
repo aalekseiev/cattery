@@ -55,23 +55,23 @@ public class RealCat implements Cat {
 	}
 
 	@Override
-	public Cat publish() {
-		throw new UnsupportedOperationException("RealCats cannot publish()");
-	}
-
-	@Override
 	public Cat graduate() {
-		throw new UnsupportedOperationException("RealCats cannot graduate()");
+		return new NullCat();
 	}
 
 	@Override
 	public Cat makeProduction() {
-		throw new UnsupportedOperationException("RealCats cannot makeProduction()");
+		return new NullCat();
 	}
 
 	@Override
 	public Cat sell() {
-		throw new UnsupportedOperationException("RealCats cannot sell()");
+		return new NullCat();
+	}
+
+	@Override
+	public Cat publish() {
+		return new NullCat();
 	}
 
 }
