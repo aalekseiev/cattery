@@ -8,6 +8,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
+import lombok.ToString;
+
+@ToString
 public class VisibleCat implements Cat {
 
 	private final Cat origin;
@@ -39,6 +42,7 @@ public class VisibleCat implements Cat {
 		return new VisibleCat(origin, false);
 	}
 	
+	@Override
 	public Cat publish() {
 		return new VisibleCat(origin, true);
 	}

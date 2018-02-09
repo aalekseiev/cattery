@@ -14,4 +14,6 @@ public interface Cat {
 
 	String toJson() throws JsonProcessingException;
 
+	Cat publish();
+
 }

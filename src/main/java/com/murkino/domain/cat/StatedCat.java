@@ -7,35 +7,58 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
+import com.murkino.domain.cat.state.GraduatedState;
+import com.murkino.domain.cat.state.NewState;
+import com.murkino.domain.cat.state.ProductionState;
+import com.murkino.domain.cat.state.SoldState;
+import com.murkino.domain.cat.state.State;
 
 import lombok.ToString;
 
 @ToString
-public class RealCat implements Cat {
-	
-	private final String id;
-	
-	private final InbornAttributes inbornAttributes;
+public class StatedCat implements Cat {
 
-	public RealCat(String id, InbornAttributes inbornAttributes) {
+	private final Cat origin;
+	
+	private final State state;
+
+	public StatedCat(Cat origin, State state) {
 		super();
-		this.id = id;
-		this.inbornAttributes = inbornAttributes;
+		this.origin = origin;
+		this.state = state;
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.murkino.domain.cat.Cat#graduate()
-	 */
-	
-	public RealCat resetColor(String color) {
-		InbornAttributes newInbornAttributes = new InbornAttributes(inbornAttributes.sex(), color, inbornAttributes.breed(), inbornAttributes.birthDate());
-		
-		return new RealCat(id, newInbornAttributes);
+	public StatedCat(Cat origin) {
+		super();
+		this.origin = origin;
+		this.state = new NewState();
 	}
 
+	@Override
+	public StatedCat graduate() {
+		return new StatedCat(origin, new GraduatedState());
+	}
+	
 	/* (non-Javadoc)
-	 * @see com.murkino.domain.cat.Cat#toJson()
+	 * @see com.murkino.domain.cat.Cat#makeProduction()
 	 */
+	@Override
+	public StatedCat makeProduction() {
+		return new StatedCat(origin, new ProductionState());
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.murkino.domain.cat.Cat#sell()
+	 */
+	@Override
+	public StatedCat sell() {
+		return new StatedCat(origin, new SoldState());
+	}
+
+	public Cat resetColor(String color) {
+		return origin.resetColor(color);
+	}
+
 	@Override
 	public String toJson() throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
@@ -51,27 +74,10 @@ public class RealCat implements Cat {
         mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         
         return mapper.writeValueAsString(this);
-		//return new StringBuilder("{").append("\"id\"").append(":").append("\"").append(id).append("\"").append("}").toString();
 	}
 
-	@Override
 	public Cat publish() {
-		throw new UnsupportedOperationException("RealCats cannot publish()");
-	}
-
-	@Override
-	public Cat graduate() {
-		throw new UnsupportedOperationException("RealCats cannot graduate()");
-	}
-
-	@Override
-	public Cat makeProduction() {
-		throw new UnsupportedOperationException("RealCats cannot makeProduction()");
-	}
-
-	@Override
-	public Cat sell() {
-		throw new UnsupportedOperationException("RealCats cannot sell()");
+		throw new UnsupportedOperationException("StatedCats are NOT publishable");
 	}
 
 }
