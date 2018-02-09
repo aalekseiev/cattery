@@ -1,0 +1,17 @@
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+group = 'com.murkino'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.cactoos/cactoos
+    compile group: 'org.cactoos', name: 'cactoos', version: '0.29'
+}
