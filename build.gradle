@@ -14,4 +14,15 @@ repositories {
 dependencies {
     // https://mvnrepository.com/artifact/org.cactoos/cactoos
     compile group: 'org.cactoos', name: 'cactoos', version: '0.29'
+    
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.4'
+    
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.module/jackson-module-parameter-names
+    compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-parameter-names', version: '2.9.4'
+
+    
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+    compile group: 'org.projectlombok', name: 'lombok', version: '1.16.20'
+    
 }
