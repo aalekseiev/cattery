@@ -6,6 +6,8 @@ import java.util.UUID;
 import org.junit.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.murkino.domain.cat.RealCat;
+import com.murkino.domain.cat.VisibleCat;
 import com.murkino.domain.cat.Cat;
 import com.murkino.domain.cat.InbornAttributes;
 import com.murkino.domain.cat.breed.ScottishStraigh;
@@ -15,10 +17,19 @@ public class CatTest {
 
 	@Test
 	public void testSerializeCat() throws JsonProcessingException {
-		Cat cat = new Cat(UUID.randomUUID().toString(),
-				new InbornAttributes(new Male(), "ny 11", new ScottishStraigh(), LocalDate.now()));
+		Cat cat = new VisibleCat(
+				          new RealCat(
+				                  UUID.randomUUID().toString(),
+				                  new InbornAttributes(
+				                		  new Male(),
+				                		  "ny 11",
+				                		  new ScottishStraigh(),
+				                		  LocalDate.now()
+				                  )
+				          ),
+				          false);
 		cat = cat.makeProduction();
-		cat = cat.publish();
+//		cat = cat.publish();
 		cat = cat.resetColor("ny 25");
 		System.out.println(cat.toJson());
 	}
