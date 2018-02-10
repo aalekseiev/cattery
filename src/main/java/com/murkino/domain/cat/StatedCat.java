@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,9 +23,9 @@ import lombok.ToString;
 
 @ToString
 @NoArgsConstructor(force = true)
-@DiscriminatorValue("StatedCat")
-public class StatedCat implements Cat {
+public final class StatedCat implements Cat {
 
+	@Transient
 	private final Cat origin;
 	
 	private State state;
@@ -87,5 +89,11 @@ public class StatedCat implements Cat {
 	public void hide() {
 		origin.hide();
 	}
+
+	public String id() {
+		return origin.id();
+	}
+	
+	
 
 }

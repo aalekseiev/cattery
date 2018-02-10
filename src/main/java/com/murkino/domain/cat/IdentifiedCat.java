@@ -1,7 +1,6 @@
 package com.murkino.domain.cat;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Id;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.murkino.domain.cat.color.Color;
@@ -12,18 +11,17 @@ import lombok.ToString;
 
 @ToString
 @NoArgsConstructor(force = true)
-@DiscriminatorValue("IdentifiedCat")
-public class IdentifiedCat implements Cat {
+public final class IdentifiedCat implements Cat {
 
+	@Transient
 	private final Cat origin;
 
-    @Id
-	private final String id;
+	private final String identifier;
 
-	public IdentifiedCat(Cat origin, String id) {
+	public IdentifiedCat(Cat origin, String identifier) {
 		super();
 		this.origin = origin;
-		this.id = id;
+		this.identifier = identifier;
 	}
 
 	public void graduate() {
@@ -58,6 +56,8 @@ public class IdentifiedCat implements Cat {
 		origin.hide();
 	}
 	
-	
+	public String id() {
+		return identifier;
+	}
 
 }

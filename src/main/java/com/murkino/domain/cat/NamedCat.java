@@ -1,6 +1,8 @@
 package com.murkino.domain.cat;
 
 import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.murkino.domain.cat.color.Color;
@@ -11,9 +13,9 @@ import lombok.ToString;
 
 @ToString
 @NoArgsConstructor(force = true)
-@DiscriminatorValue("NamedCat")
-public class NamedCat implements Cat {
+public final class NamedCat implements Cat {
 
+	@Transient
 	private final Cat origin;
 
 	private String name;
@@ -59,5 +61,8 @@ public class NamedCat implements Cat {
 		origin.hide();
 	}
 
+	public String id() {
+		return origin.id();
+	}
 	
 }

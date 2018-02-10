@@ -3,8 +3,6 @@ package com.murkino.domain.cat;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.DiscriminatorValue;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,8 +15,7 @@ import lombok.ToString;
 
 @ToString
 @NoArgsConstructor(force = true)
-@DiscriminatorValue("VisibleCat")
-public class VisibleCat implements Cat {
+public final class VisibleCat implements Cat {
 
 	@JsonProperty
 	private final Cat origin;
@@ -77,6 +74,10 @@ public class VisibleCat implements Cat {
 	@Override
 	public void resetSex(Sex sex) {
 		origin.resetSex(sex);
+	}
+	
+	public String id() {
+		return origin.id();
 	}
 
 }

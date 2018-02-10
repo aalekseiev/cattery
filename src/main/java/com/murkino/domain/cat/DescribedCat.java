@@ -16,7 +16,6 @@ import lombok.ToString;
 
 @ToString
 @NoArgsConstructor(force = true)
-@DiscriminatorValue("DescribedCat")
 public class DescribedCat implements Cat {
 
 	private final Cat origin;
@@ -63,6 +62,9 @@ public class DescribedCat implements Cat {
 	public void hide() {
 		origin.hide();
 	}
-	
-	
+
+	public String id() {
+		return origin.id();
+	}
+
 }

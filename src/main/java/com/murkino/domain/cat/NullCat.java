@@ -46,4 +46,7 @@ public class NullCat implements Cat {
 		throw new UnsupportedOperationException();
 	}
 
+	public String id() {
+		throw new UnsupportedOperationException();
+	}
 }

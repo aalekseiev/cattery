@@ -9,14 +9,12 @@ import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.murkino.domain.cat.Cat;
-import com.murkino.domain.cat.CatInbornAttributes;
 import com.murkino.domain.cat.DescribedCat;
 import com.murkino.domain.cat.IdentifiedCat;
 import com.murkino.domain.cat.NamedCat;
 import com.murkino.domain.cat.RealCat;
 import com.murkino.domain.cat.StatedCat;
 import com.murkino.domain.cat.VisibleCat;
-import com.murkino.domain.cat.breed.ScottishFoldShorthairs;
 import com.murkino.domain.cat.breed.ScottishStraight;
 import com.murkino.domain.cat.color.CatColor;
 import com.murkino.domain.cat.sex.Male;
@@ -38,9 +36,9 @@ public class CatTest {
 				                		  LocalDate.now()
 							          ),
 							          UUID.randomUUID().toString()
-							      ),
-							      "Demimur",
-							      "deminur"
+							       ),
+								   "Demimur",
+								   "deminur"
 							  ),
 					          "Just plain description"
 					      )
@@ -71,16 +69,6 @@ public class CatTest {
         
 		Cat kit = (Cat) mapper.readValue(json, HashMap.class).get("entity");
 		System.out.println(kit);
-	}
-	
-	@Test
-	public void testSerializeInbornAttributes() throws Exception {
-		CatInbornAttributes attrs = new CatInbornAttributes(new Male(),
-				new CatColor("ny 12"),
-				new ScottishFoldShorthairs(), 
-				LocalDate.now());
-		
-		System.out.println(attrs.toJson());
 	}
 
 }

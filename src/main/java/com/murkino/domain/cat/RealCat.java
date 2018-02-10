@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.DiscriminatorValue;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.murkino.domain.cat.breed.Breed;
@@ -18,7 +16,6 @@ import lombok.ToString;
 
 @ToString
 @NoArgsConstructor(force = true)
-@DiscriminatorValue("RealCat")
 public class RealCat implements Cat {
 	
 	private Sex sex;
@@ -79,11 +76,14 @@ public class RealCat implements Cat {
 	}
 
 	public RealCat(Sex sex, Color color, Breed breed, LocalDate birthDate) {
-		super();
 		this.sex = sex;
 		this.color = color;
 		this.breed = breed;
 		this.birthDate = birthDate;
 	}
 
+	@Override
+	public String id() {
+		return new NullCat().id();
+	}
 }
