@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
+import com.murkino.domain.cat.sex.Sex;
 import com.murkino.domain.cat.state.GraduatedState;
 import com.murkino.domain.cat.state.NewState;
 import com.murkino.domain.cat.state.ProductionState;
@@ -20,7 +21,7 @@ public class StatedCat implements Cat {
 
 	private final Cat origin;
 	
-	private final State state;
+	private State state;
 
 	public StatedCat(Cat origin, State state) {
 		super();
@@ -35,28 +36,32 @@ public class StatedCat implements Cat {
 	}
 
 	@Override
-	public Cat graduate() {
-		return new StatedCat(origin, new GraduatedState());
+	public void graduate() {
+		state = new GraduatedState();
 	}
 	
 	/* (non-Javadoc)
 	 * @see com.murkino.domain.cat.Cat#makeProduction()
 	 */
 	@Override
-	public Cat makeProduction() {
-		return new StatedCat(origin, new ProductionState());
+	public void makeProduction() {
+		state = new ProductionState();
 	}
 	
 	/* (non-Javadoc)
 	 * @see com.murkino.domain.cat.Cat#sell()
 	 */
 	@Override
-	public Cat sell() {
-		return new StatedCat(origin, new SoldState());
+	public void sell() {
+		state = new SoldState();
 	}
 
-	public Cat resetColor(String color) {
-		return origin.resetColor(color);
+	public void publish() {
+		origin.publish();
+	}
+
+	public void resetColor(String color) {
+		origin.resetColor(color);
 	}
 
 	@Override
@@ -76,8 +81,9 @@ public class StatedCat implements Cat {
         return mapper.writeValueAsString(this);
 	}
 
-	public Cat publish() {
-		return origin.publish();
+	@Override
+	public void resetSex(Sex sex) {
+		origin.resetSex(sex);	
 	}
 
 }

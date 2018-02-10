@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
+import com.murkino.domain.cat.sex.Sex;
 
 import lombok.ToString;
 
@@ -15,7 +16,7 @@ public class RealCat implements Cat {
 	
 	private final String id;
 	
-	private final InbornAttributes inbornAttributes;
+	private InbornAttributes inbornAttributes;
 
 	public RealCat(String id, InbornAttributes inbornAttributes) {
 		super();
@@ -27,10 +28,12 @@ public class RealCat implements Cat {
 	 * @see com.murkino.domain.cat.Cat#graduate()
 	 */
 	
-	public RealCat resetColor(String color) {
-		InbornAttributes newInbornAttributes = new InbornAttributes(inbornAttributes.sex(), color, inbornAttributes.breed(), inbornAttributes.birthDate());
-		
-		return new RealCat(id, newInbornAttributes);
+	public void resetColor(String color) {
+		inbornAttributes = new InbornAttributes(inbornAttributes.sex(), color, inbornAttributes.breed(), inbornAttributes.birthDate());
+	}
+	
+	public void resetSex(Sex sex) {
+		inbornAttributes = new InbornAttributes(sex, inbornAttributes.color(), inbornAttributes.breed(), inbornAttributes.birthDate());
 	}
 
 	/* (non-Javadoc)
@@ -55,23 +58,23 @@ public class RealCat implements Cat {
 	}
 
 	@Override
-	public Cat graduate() {
-		return new NullCat();
+	public void graduate() {
+//		return new NullCat();
 	}
 
 	@Override
-	public Cat makeProduction() {
-		return new NullCat();
+	public void makeProduction() {
+//		return new NullCat();
 	}
 
 	@Override
-	public Cat sell() {
-		return new NullCat();
+	public void sell() {
+//		return new NullCat();
 	}
 
 	@Override
-	public Cat publish() {
-		return new NullCat();
+	public void publish() {
+//		return new NullCat();
 	}
 
 }

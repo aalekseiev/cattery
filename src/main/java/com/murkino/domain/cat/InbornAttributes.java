@@ -37,4 +37,8 @@ public final class InbornAttributes {
 	public LocalDate birthDate() {
 		return this.birthDate;
 	}
+	
+	public String color() {
+		return this.color;
+	}
 }

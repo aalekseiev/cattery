@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
+import com.murkino.domain.cat.sex.Sex;
 
 import lombok.ToString;
 
@@ -15,7 +16,7 @@ public class VisibleCat implements Cat {
 
 	private final Cat origin;
 	
-	private final Boolean visible;
+	private Boolean visible;
 
 	public VisibleCat(Cat origin, Boolean visible) {
 		this.origin = origin;
@@ -23,34 +24,34 @@ public class VisibleCat implements Cat {
 	}
 
 	@Override
-	public Cat graduate() {
-		return origin.graduate();
+	public void graduate() {
+		origin.graduate();
 	}
 
 	@Override
-	public Cat makeProduction() {
-		return origin.makeProduction();
+	public void makeProduction() {
+		origin.makeProduction();
 	}
 
 	@Override
-	public Cat sell() {
-		return origin.sell();
-	}
-
-	
-	public Cat hide() {
-		return new VisibleCat(origin, false);
-	}
-	
-	@Override
-	public Cat publish() {
-		return new VisibleCat(origin, true);
+	public void sell() {
+		origin.sell();
 	}
 
 	
+	public void hide() {
+		visible = false;
+	}
+	
 	@Override
-	public Cat resetColor(String color) {
-		return origin.resetColor(color);
+	public void publish() {
+		this.visible = true;
+	}
+
+	
+	@Override
+	public void resetColor(String color) {
+		origin.resetColor(color);
 	}
 
 	public Boolean visible() {
@@ -72,6 +73,11 @@ public class VisibleCat implements Cat {
         mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         
         return mapper.writeValueAsString(this);
+	}
+
+	@Override
+	public void resetSex(Sex sex) {
+		origin.resetSex(sex);
 	}
 
 }

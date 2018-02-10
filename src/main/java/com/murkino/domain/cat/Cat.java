@@ -1,19 +1,22 @@
 package com.murkino.domain.cat;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.murkino.domain.cat.sex.Sex;
 
 public interface Cat {
 
-	Cat graduate();
+	void graduate();
 
-	Cat makeProduction();
+	void makeProduction();
 
-	Cat sell();
+	void sell();
 	
-	Cat resetColor(String color);
+	void resetColor(String color);
+	
+	void resetSex(Sex sex);
 
 	String toJson() throws JsonProcessingException;
 
-	Cat publish();
+	void publish();
 
 }

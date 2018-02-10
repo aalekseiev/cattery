@@ -1,26 +1,27 @@
 package com.murkino.domain.cat;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.murkino.domain.cat.sex.Sex;
 
 public class NullCat implements Cat {
 
 	@Override
-	public Cat graduate() {
+	public void graduate() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public Cat makeProduction() {
+	public void makeProduction() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public Cat sell() {
+	public void sell() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public Cat resetColor(String color) {
+	public void resetColor(String color) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -30,7 +31,12 @@ public class NullCat implements Cat {
 	}
 
 	@Override
-	public Cat publish() {
+	public void publish() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void resetSex(Sex sex) {
 		throw new UnsupportedOperationException();
 	}
 
