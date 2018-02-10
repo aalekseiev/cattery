@@ -1,13 +1,14 @@
 package com.murkino.domain.cat;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.DiscriminatorValue;
-import javax.persistence.Embedded;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.murkino.domain.cat.breed.Breed;
 import com.murkino.domain.cat.color.Color;
 import com.murkino.domain.cat.sex.Sex;
 import com.murkino.mapper.MurkinoObjectMapper;
@@ -20,27 +21,24 @@ import lombok.ToString;
 @DiscriminatorValue("RealCat")
 public class RealCat implements Cat {
 	
-	private final String id;
-	
-	@Embedded
-	private CatInbornAttributes inbornAttributes;
+	private Sex sex;
 
-	public RealCat(String id, CatInbornAttributes inbornAttributes) {
-		super();
-		this.id = id;
-		this.inbornAttributes = inbornAttributes;
-	}
+	private Color color;
+
+	private final Breed breed;
+	
+	private final LocalDate birthDate;
 	
 	/* (non-Javadoc)
 	 * @see com.murkino.domain.cat.Cat#graduate()
 	 */
 	
 	public void resetColor(Color color) {
-		inbornAttributes = new CatInbornAttributes(inbornAttributes.sex(), color, inbornAttributes.breed(), inbornAttributes.birthDate());
+		this.color = color;
 	}
 	
 	public void resetSex(Sex sex) {
-		inbornAttributes = new CatInbornAttributes(sex, inbornAttributes.color(), inbornAttributes.breed(), inbornAttributes.birthDate());
+		this.sex = sex;
 	}
 
 	/* (non-Javadoc)
@@ -57,27 +55,35 @@ public class RealCat implements Cat {
 
 	@Override
 	public void graduate() {
-//		return new NullCat();
+		new NullCat().graduate();
 	}
 
 	@Override
 	public void makeProduction() {
-//		return new NullCat();
+		new NullCat().makeProduction();
 	}
 
 	@Override
 	public void sell() {
-//		return new NullCat();
+		new NullCat().sell();
 	}
 
 	@Override
 	public void publish() {
-//		return new NullCat();
+		new NullCat().publish();
 	}
 
 	@Override
 	public void hide() {
-		
+		new NullCat().hide();
+	}
+
+	public RealCat(Sex sex, Color color, Breed breed, LocalDate birthDate) {
+		super();
+		this.sex = sex;
+		this.color = color;
+		this.breed = breed;
+		this.birthDate = birthDate;
 	}
 
 }

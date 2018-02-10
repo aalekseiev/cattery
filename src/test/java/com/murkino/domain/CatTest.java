@@ -10,6 +10,9 @@ import org.junit.Test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.murkino.domain.cat.Cat;
 import com.murkino.domain.cat.CatInbornAttributes;
+import com.murkino.domain.cat.DescribedCat;
+import com.murkino.domain.cat.IdentifiedCat;
+import com.murkino.domain.cat.NamedCat;
 import com.murkino.domain.cat.RealCat;
 import com.murkino.domain.cat.StatedCat;
 import com.murkino.domain.cat.VisibleCat;
@@ -25,17 +28,25 @@ public class CatTest {
 	public void testSerializeDeserializeCat() throws IOException {
 		Cat cat = new VisibleCat(
 					  new StatedCat(
-				          new RealCat(
-				                  UUID.randomUUID().toString(),
-				                  new CatInbornAttributes(
+						  new DescribedCat(
+						      new NamedCat(		  
+							      new IdentifiedCat(
+							          new RealCat(
 				                		  new Male(),
 				                		  new CatColor("ny 11"),
 				                		  new ScottishStraight(),
 				                		  LocalDate.now()
-				                  )
-				          )
+							          ),
+							          UUID.randomUUID().toString()
+							      ),
+							      "Demimur",
+							      "deminur"
+							  ),
+					          "Just plain description"
+					      )
 				       ),
-				       false);
+				       false
+				   );
 		System.out.println("------------------------------");
 		System.out.println(cat);
 		
