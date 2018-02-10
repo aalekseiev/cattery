@@ -5,6 +5,8 @@ import static com.fasterxml.jackson.annotation.PropertyAccessor.FIELD;
 
 import java.time.LocalDate;
 
+import javax.persistence.Embeddable;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
@@ -17,6 +19,7 @@ import lombok.ToString;
 
 @ToString
 @NoArgsConstructor(force = true)
+@Embeddable
 public final class CatInbornAttributes {
 
 	private final Sex sex;

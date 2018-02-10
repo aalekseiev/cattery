@@ -1,25 +1,23 @@
 package com.murkino.domain.cat;
 
-import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
-import static com.fasterxml.jackson.annotation.PropertyAccessor.FIELD;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.persistence.DiscriminatorValue;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import com.murkino.domain.cat.color.Color;
 import com.murkino.domain.cat.sex.Sex;
+import com.murkino.mapper.MurkinoObjectMapper;
 
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @ToString
 @NoArgsConstructor(force = true)
+@DiscriminatorValue("VisibleCat")
 public class VisibleCat implements Cat {
 
 	@JsonProperty
@@ -47,7 +45,7 @@ public class VisibleCat implements Cat {
 		origin.sell();
 	}
 
-	
+	@Override
 	public void hide() {
 		visible = false;
 	}
@@ -69,23 +67,8 @@ public class VisibleCat implements Cat {
 	
 	@Override
 	public String toJson() throws JsonProcessingException {
-		ObjectMapper mapper = new ObjectMapper();
-		// Avoid having to annotate the Person class
-        // Requires Java 8, pass -parameters to javac
-        // and jackson-module-parameter-names as a dependency
-        mapper.registerModule(new ParameterNamesModule());
- 
-        // make private fields of Person visible to Jackson
-        mapper.setVisibility(FIELD, ANY);
-
-        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-        
-        mapper.enableDefaultTyping();
-        
-        mapper.registerModule(new JavaTimeModule());
-//        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
-        
+		ObjectMapper mapper = new MurkinoObjectMapper();
+		
         Map<String, Object> map = new HashMap<>();
         map.put("entity", this);
         return mapper.writeValueAsString(map);

@@ -1,29 +1,28 @@
 package com.murkino.domain.cat;
 
-import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
-import static com.fasterxml.jackson.annotation.PropertyAccessor.FIELD;
-
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Embedded;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import com.murkino.domain.cat.color.Color;
 import com.murkino.domain.cat.sex.Sex;
+import com.murkino.mapper.MurkinoObjectMapper;
 
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @ToString
 @NoArgsConstructor(force = true)
+@DiscriminatorValue("RealCat")
 public class RealCat implements Cat {
 	
 	private final String id;
 	
+	@Embedded
 	private CatInbornAttributes inbornAttributes;
 
 	public RealCat(String id, CatInbornAttributes inbornAttributes) {
@@ -49,25 +48,11 @@ public class RealCat implements Cat {
 	 */
 	@Override
 	public String toJson() throws JsonProcessingException {
-		ObjectMapper mapper = new ObjectMapper();
-		// Avoid having to annotate the Person class
-        // Requires Java 8, pass -parameters to javac
-        // and jackson-module-parameter-names as a dependency
-        mapper.registerModule(new ParameterNamesModule());
- 
-        // make private fields of Person visible to Jackson
-        mapper.setVisibility(FIELD, ANY);
-
-        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+		ObjectMapper mapper = new MurkinoObjectMapper();
         
-        mapper.enableDefaultTyping();
-        
-        mapper.registerModule(new JavaTimeModule());
-//        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
-        
+        Map<String, Object> map = new HashMap<>();
+        map.put("entity", this);
         return mapper.writeValueAsString(this);
-		//return new StringBuilder("{").append("\"id\"").append(":").append("\"").append(id).append("\"").append("}").toString();
 	}
 
 	@Override
@@ -88,6 +73,11 @@ public class RealCat implements Cat {
 	@Override
 	public void publish() {
 //		return new NullCat();
+	}
+
+	@Override
+	public void hide() {
+		
 	}
 
 }
