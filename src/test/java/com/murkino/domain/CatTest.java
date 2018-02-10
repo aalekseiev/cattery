@@ -23,7 +23,7 @@ import com.murkino.domain.cat.VisibleCat;
 import com.murkino.domain.cat.Cat;
 import com.murkino.domain.cat.CatInbornAttributes;
 import com.murkino.domain.cat.breed.ScottishFoldShorthairs;
-import com.murkino.domain.cat.breed.ScottishStraigh;
+import com.murkino.domain.cat.breed.ScottishStraight;
 import com.murkino.domain.cat.color.CatColor;
 import com.murkino.domain.cat.sex.Male;
 
@@ -38,7 +38,7 @@ public class CatTest {
 				                  new CatInbornAttributes(
 				                		  new Male(),
 				                		  new CatColor("ny 11"),
-				                		  new ScottishStraigh(),
+				                		  new ScottishStraight(),
 				                		  LocalDate.now()
 				                  )
 				          )

@@ -24,7 +24,7 @@ import lombok.ToString;
 
 @ToString
 @NoArgsConstructor(force = true)
-public class StatedCat extends AbstractCat implements Cat {
+public class StatedCat implements Cat {
 
 	private final Cat origin;
 	
@@ -96,14 +96,6 @@ public class StatedCat extends AbstractCat implements Cat {
 	@Override
 	public void resetSex(Sex sex) {
 		origin.resetSex(sex);	
-	}
-
-	@Override
-	public Map<String, Object> toMedia() {
-		Map<String, Object> retMap = new HashMap<>();
-		retMap.put("state", state);
-		retMap.putAll(origin.toMedia());
-		return retMap;
 	}
 
 }

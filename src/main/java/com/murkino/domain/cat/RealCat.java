@@ -20,7 +20,7 @@ import lombok.ToString;
 
 @ToString
 @NoArgsConstructor(force = true)
-public class RealCat extends AbstractCat implements Cat {
+public class RealCat implements Cat {
 	
 	private final String id;
 	
@@ -88,14 +88,6 @@ public class RealCat extends AbstractCat implements Cat {
 	@Override
 	public void publish() {
 //		return new NullCat();
-	}
-
-	@Override
-	public Map<String, Object> toMedia() {
-		Map<String, Object> retMap = new HashMap<>();
-		retMap.put("id", id);
-		retMap.put("inbornAttributes", inbornAttributes);
-		return retMap ;
 	}
 
 }

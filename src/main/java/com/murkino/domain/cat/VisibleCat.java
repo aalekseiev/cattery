@@ -20,7 +20,7 @@ import lombok.ToString;
 
 @ToString
 @NoArgsConstructor(force = true)
-public class VisibleCat extends AbstractCat implements Cat {
+public class VisibleCat implements Cat {
 
 	@JsonProperty
 	private final Cat origin;
@@ -94,14 +94,6 @@ public class VisibleCat extends AbstractCat implements Cat {
 	@Override
 	public void resetSex(Sex sex) {
 		origin.resetSex(sex);
-	}
-
-	@Override
-	public Map<String, Object> toMedia() {
-		Map<String, Object> retMap = new HashMap<>();
-		retMap.put("visible", visible);
-		retMap.putAll(origin.toMedia());
-		return retMap;
 	}
 
 }

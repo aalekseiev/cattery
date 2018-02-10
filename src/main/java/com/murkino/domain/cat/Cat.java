@@ -19,8 +19,6 @@ public interface Cat {
 	void resetSex(Sex sex);
 
 	String toJson() throws JsonProcessingException;
-	
-	Map<String, Object> toMedia();
 
 	void publish();
 

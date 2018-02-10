@@ -6,7 +6,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.murkino.domain.cat.color.Color;
 import com.murkino.domain.cat.sex.Sex;
 
-public class NullCat extends AbstractCat implements Cat {
+public class NullCat implements Cat {
 
 	@Override
 	public void graduate() {
@@ -40,11 +40,6 @@ public class NullCat extends AbstractCat implements Cat {
 
 	@Override
 	public void resetSex(Sex sex) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public Map<String, Object> toMedia() {
 		throw new UnsupportedOperationException();
 	}
 

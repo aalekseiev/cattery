@@ -1,6 +1,9 @@
 package com.murkino.domain.cat.breed;
 
-public class ScottishStraigh implements Breed {
+import lombok.ToString;
+
+@ToString
+public class ScottishStraight implements Breed {
 
 	@Override
 	public String shortName() {
