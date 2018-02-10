@@ -20,7 +20,7 @@ import lombok.ToString;
 
 @ToString
 @NoArgsConstructor(force = true)
-public class VisibleCat implements Cat {
+public class VisibleCat extends AbstractCat implements Cat {
 
 	@JsonProperty
 	private final Cat origin;
@@ -84,9 +84,11 @@ public class VisibleCat implements Cat {
         mapper.enableDefaultTyping();
         
         mapper.registerModule(new JavaTimeModule());
-        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
+//        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
         
-        return mapper.writeValueAsString(this);
+        Map<String, Object> map = new HashMap<>();
+        map.put("entity", this);
+        return mapper.writeValueAsString(map);
 	}
 
 	@Override

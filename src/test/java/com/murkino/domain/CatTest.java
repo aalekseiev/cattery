@@ -5,6 +5,8 @@ import static com.fasterxml.jackson.annotation.PropertyAccessor.FIELD;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import org.junit.Test;
@@ -57,7 +59,7 @@ public class CatTest {
         // and jackson-module-parameter-names as a dependency
         mapper.registerModule(new ParameterNamesModule());
  
-        // make private fields of Person visible to Jackson
+        // make private fields of Cat visible to Jackson
         mapper.setVisibility(FIELD, ANY);
 
         mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
@@ -66,9 +68,8 @@ public class CatTest {
         mapper.enableDefaultTyping();
         
         mapper.registerModule(new JavaTimeModule());
-//        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
         
-		Cat kit = mapper.readValue(json, Cat.class);
+		Cat kit = (Cat) mapper.readValue(json, HashMap.class).get("entity");
 		System.out.println(kit);
 	}
 	

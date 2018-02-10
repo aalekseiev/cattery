@@ -24,7 +24,7 @@ import lombok.ToString;
 
 @ToString
 @NoArgsConstructor(force = true)
-public class StatedCat implements Cat {
+public class StatedCat extends AbstractCat implements Cat {
 
 	private final Cat origin;
 	
@@ -88,7 +88,7 @@ public class StatedCat implements Cat {
         mapper.enableDefaultTyping();
         
         mapper.registerModule(new JavaTimeModule());
-        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
+//        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
         
         return mapper.writeValueAsString(this);
 	}

@@ -20,7 +20,7 @@ import lombok.ToString;
 
 @ToString
 @NoArgsConstructor(force = true)
-public class RealCat implements Cat {
+public class RealCat extends AbstractCat implements Cat {
 	
 	private final String id;
 	
