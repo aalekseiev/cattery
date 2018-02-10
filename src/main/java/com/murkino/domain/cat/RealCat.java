@@ -3,22 +3,30 @@ package com.murkino.domain.cat;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
 import static com.fasterxml.jackson.annotation.PropertyAccessor.FIELD;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
+import com.murkino.domain.cat.color.Color;
 import com.murkino.domain.cat.sex.Sex;
 
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @ToString
+@NoArgsConstructor(force = true)
 public class RealCat implements Cat {
 	
 	private final String id;
 	
-	private InbornAttributes inbornAttributes;
+	private CatInbornAttributes inbornAttributes;
 
-	public RealCat(String id, InbornAttributes inbornAttributes) {
+	public RealCat(String id, CatInbornAttributes inbornAttributes) {
 		super();
 		this.id = id;
 		this.inbornAttributes = inbornAttributes;
@@ -28,12 +36,12 @@ public class RealCat implements Cat {
 	 * @see com.murkino.domain.cat.Cat#graduate()
 	 */
 	
-	public void resetColor(String color) {
-		inbornAttributes = new InbornAttributes(inbornAttributes.sex(), color, inbornAttributes.breed(), inbornAttributes.birthDate());
+	public void resetColor(Color color) {
+		inbornAttributes = new CatInbornAttributes(inbornAttributes.sex(), color, inbornAttributes.breed(), inbornAttributes.birthDate());
 	}
 	
 	public void resetSex(Sex sex) {
-		inbornAttributes = new InbornAttributes(sex, inbornAttributes.color(), inbornAttributes.breed(), inbornAttributes.birthDate());
+		inbornAttributes = new CatInbornAttributes(sex, inbornAttributes.color(), inbornAttributes.breed(), inbornAttributes.birthDate());
 	}
 
 	/* (non-Javadoc)
@@ -52,6 +60,11 @@ public class RealCat implements Cat {
 
         mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        
+        mapper.enableDefaultTyping();
+        
+        mapper.registerModule(new JavaTimeModule());
+//        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
         
         return mapper.writeValueAsString(this);
 		//return new StringBuilder("{").append("\"id\"").append(":").append("\"").append(id).append("\"").append("}").toString();
@@ -75,6 +88,14 @@ public class RealCat implements Cat {
 	@Override
 	public void publish() {
 //		return new NullCat();
+	}
+
+	@Override
+	public Map<String, Object> toMedia() {
+		Map<String, Object> retMap = new HashMap<>();
+		retMap.put("id", id);
+		retMap.put("inbornAttributes", inbornAttributes);
+		return retMap ;
 	}
 
 }

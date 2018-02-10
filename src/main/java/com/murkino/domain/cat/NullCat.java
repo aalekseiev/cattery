@@ -1,6 +1,9 @@
 package com.murkino.domain.cat;
 
+import java.util.Map;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.murkino.domain.cat.color.Color;
 import com.murkino.domain.cat.sex.Sex;
 
 public class NullCat implements Cat {
@@ -21,7 +24,7 @@ public class NullCat implements Cat {
 	}
 
 	@Override
-	public void resetColor(String color) {
+	public void resetColor(Color color) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -37,6 +40,11 @@ public class NullCat implements Cat {
 
 	@Override
 	public void resetSex(Sex sex) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Map<String, Object> toMedia() {
 		throw new UnsupportedOperationException();
 	}
 

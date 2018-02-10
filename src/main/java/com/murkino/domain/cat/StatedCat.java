@@ -3,10 +3,15 @@ package com.murkino.domain.cat;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
 import static com.fasterxml.jackson.annotation.PropertyAccessor.FIELD;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
+import com.murkino.domain.cat.color.Color;
 import com.murkino.domain.cat.sex.Sex;
 import com.murkino.domain.cat.state.GraduatedState;
 import com.murkino.domain.cat.state.NewState;
@@ -14,9 +19,11 @@ import com.murkino.domain.cat.state.ProductionState;
 import com.murkino.domain.cat.state.SoldState;
 import com.murkino.domain.cat.state.State;
 
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @ToString
+@NoArgsConstructor(force = true)
 public class StatedCat implements Cat {
 
 	private final Cat origin;
@@ -60,7 +67,7 @@ public class StatedCat implements Cat {
 		origin.publish();
 	}
 
-	public void resetColor(String color) {
+	public void resetColor(Color color) {
 		origin.resetColor(color);
 	}
 
@@ -78,12 +85,25 @@ public class StatedCat implements Cat {
         mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         
+        mapper.enableDefaultTyping();
+        
+        mapper.registerModule(new JavaTimeModule());
+        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
+        
         return mapper.writeValueAsString(this);
 	}
 
 	@Override
 	public void resetSex(Sex sex) {
 		origin.resetSex(sex);	
+	}
+
+	@Override
+	public Map<String, Object> toMedia() {
+		Map<String, Object> retMap = new HashMap<>();
+		retMap.put("state", state);
+		retMap.putAll(origin.toMedia());
+		return retMap;
 	}
 
 }

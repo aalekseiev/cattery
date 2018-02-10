@@ -1,10 +1,10 @@
 package com.murkino.domain.cat.breed;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
+//import com.fasterxml.jackson.annotation.JsonGetter;
 
 public interface Breed {
 
-	@JsonGetter("shortName")
+//	@JsonGetter("shortName")
 	String shortName();
 	
 }

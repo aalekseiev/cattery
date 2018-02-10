@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 
 public abstract class State {
 
-	@JsonGetter("shortName")
+//	@JsonGetter("shortName")
 	public abstract String name();
 	
 }
